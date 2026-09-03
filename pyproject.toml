@@ -1,0 +1,20 @@
+[project]
+name = "mo-flow-sg"
+version = "0.1.0"
+description = "Flow matching implementation for the paper 'Flow Matching for Convective-scale Precipitation Downscaling'"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "azureml-mlflow==1.55.0",
+    "mlflow-skinny==2.16.1",
+    "torch==2.8.0",
+    "xarray",
+    "einops",
+    "numpy",
+    "netCDF4",
+    "dask",
+    "scipy",
+    "zarr",
+    "pytz",
+    "pydantic",
+]
