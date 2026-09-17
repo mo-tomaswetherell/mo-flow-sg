@@ -1,0 +1,117 @@
+predictors:
+  hus200:
+    transforms:
+      - name: normalisation
+        dims: ["time", "lat", "lon"]
+  hus500:
+    transforms:
+      - name: normalisation
+        dims: ["time", "lat", "lon"]
+  hus700:
+    transforms:
+      - name: normalisation
+        dims: ["time", "lat", "lon"]
+  hus850:
+    transforms:
+      - name: normalisation
+        dims: ["time", "lat", "lon"]
+  ta200:
+    transforms:
+      - name: normalisation
+        dims: ["time", "lat", "lon"]
+  ta500:
+    transforms:
+      - name: normalisation
+        dims: ["time", "lat", "lon"]
+  ta700:
+    transforms:
+      - name: normalisation
+        dims: ["time", "lat", "lon"]
+  ta850:
+    transforms:
+      - name: normalisation
+        dims: ["time", "lat", "lon"]
+  ua200:
+    transforms:
+      - name: normalisation
+        dims: ["time", "lat", "lon"]
+  ua500:
+    transforms:
+      - name: normalisation
+        dims: ["time", "lat", "lon"]
+  ua700:
+    transforms:
+      - name: normalisation
+        dims: ["time", "lat", "lon"]
+  ua850:
+    transforms:
+      - name: normalisation
+        dims: ["time", "lat", "lon"]
+  va200:
+    transforms:
+      - name: normalisation
+        dims: ["time", "lat", "lon"]
+  va500:
+    transforms:
+      - name: normalisation
+        dims: ["time", "lat", "lon"]
+  va700:
+    transforms:
+      - name: normalisation
+        dims: ["time", "lat", "lon"]
+  va850:
+    transforms:
+      - name: normalisation
+        dims: ["time", "lat", "lon"]
+  psl:
+    transforms:
+      - name: normalisation
+        dims: ["time", "lat", "lon"]
+
+static:
+  - orog
+  - lsm
+
+targets:
+  pr:
+    transforms:
+      - name: sqrt
+      - name: clip_outputs
+        min: 0.0
+      - name: minmax
+        out_min: -1.0
+        out_max: 1.0
+
+pos_emb: True
+
+source:
+  type: gaussian
+  mean: 0.0
+  std: 1.0
+
+scheduler:
+  type: condot
+
+training:
+  years: ["1995-2014", "2080-2099"]
+  learning_rate: 1.0e-4
+  epochs: 500
+  batch_size: 128
+  gradient_accumulation_steps: 1
+  patience: 50
+  ema_decay: 0.999
+
+validation:
+  years: ["2040-2049"]
+
+test:
+  years: ["2050-2059"]
+
+model:
+  img_resolution: 128
+  model_channels: 64
+  channel_mult: [1, 2, 3, 4]
+  channel_mult_emb: 2
+  num_residual_blocks: 2
+  attention_resolutions: [16]
+  dropout: 0.1
